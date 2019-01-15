@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from .models import Profile,User,Post,NeighborHood,Comment
-from .forms import ProfileForm,HoodForm,PostForm,CommentForm
+from .models import Profile,User,Post,Comment
+from .forms import ProfileForm,PostForm,CommentForm
 
 @login_required( login_url= '/accounts/login')
 def index(request):
@@ -25,21 +25,6 @@ def edit(request):
         form = ProfileForm()
     return render(request, 'edit_profile.html', locals())
 
-
-# @login_required(login_url='/accounts/login')
-# def upload_business(request):
-#     hood = NeighborHood.objects.get(id=request.user.profile.neighborhood.id)
-#     if request.method == 'POST':
-#         businessform = BusinessForm(request.POST, request.FILES)
-#         if businessform.is_valid():
-#             upload = businessform.save(commit=False)
-#             upload.user=request.user
-#             upload.neighborHood=request.user.profile.neighborhood
-#             upload.save()
-#         return redirect('hood',request.user.profile.neighborhood.id)
-#     else:
-#         businessform = BusinessForm()
-#     return render(request,'Business.html',locals())
 
 @login_required(login_url='/accounts/login')
 def add_hood(request):
@@ -70,17 +55,6 @@ def leave(request,neighborhood_id):
     current_user.profile.save()
     return redirect('home_page')
 
-# @login_required(login_url='/accounts/login/')
-# def hood(request,neighborhood_id):
-#     current_user = request.user
-#     hood_name = current_user.profile.neighborhood
-#     single_hood = NeighborHood.objects.get(id = request.user.profile.neighborhood.id)
-#     business=Business.objects.get(id = request.user.profile.neighborhood.id)
-#     comments = Comment.objects.all()
-#     form = CommentForm(instance=request.user)
-#     print(business)
-
-#     return render(request,'hood.html',locals())
 
 def one_post(request,post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -96,24 +70,22 @@ def one_post(request,post_id):
 
 @login_required(login_url='/accounts/login')
 def add_post(request):
-    hood = NeighborHood.objects.get(id=request.user.profile.neighborhood.id)
     if request.method == 'POST':
         postform = PostForm(request.POST, request.FILES)
         if postform.is_valid():
             post = postform.save(commit=False)
             post.profile = request.user.profile
             post.user = request.user
-            post.neighborHood=request.user.profile.neighborhood
+            # post.neighborHood=request.user.profile.neighborhood
             post.save()
-            return redirect('hood',request.user.profile.neighborhood.id)
+            # return redirect('hood',request.user.profile.neighborhood.id)
     else:
         postform = PostForm()
-    return render(request,'add-post.html',locals())
+    return render(request,'add_post.html',locals())
 
 @login_required(login_url='/accounts/login')
 def search_results(request):
     business= Business.objects.all()
-    hood = NeighborHood.objects.get(id=request.user.profile.neighborhood.id)
     if 'business' in request.GET and request.GET["business"]:
         search_term = request.GET.get("business")
         searched_business = Business.search(search_term)

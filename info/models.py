@@ -44,21 +44,6 @@ class Profile(models.Model):
         return userprof
 
 
-class NeighborHood(models.Model):
-    view = models.ImageField(upload_to = 'images/',blank=True)
-    name = models.CharField(max_length=50,blank=True)
-    location = models.CharField(max_length = 50,null = True)
-    pub_date = models.DateTimeField(auto_now_add=True, null=True)
-    
-    def save_hood(self):
-        self.save()
-
-    @classmethod
-    def get_all_hoods(cls):
-        hood = NeighborHood.objects.all()
-        return hood
-
-
 class Post(models.Model):
     name = models.CharField(max_length=50,blank=True)
     image = models.ImageField(upload_to = 'images/')
@@ -80,7 +65,6 @@ class Post(models.Model):
 class Comment(models.Model):
     name = models.CharField(max_length=30)
     post = models.ForeignKey(Post,null = True)
-    neighborhood = models.ForeignKey(NeighborHood,related_name='comment')
 
 
     def __str__(self):
