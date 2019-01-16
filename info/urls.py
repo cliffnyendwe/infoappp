@@ -7,12 +7,17 @@ urlpatterns = [
 
     url(r'^$', views.index, name='index'),
     url(r'^edit$', views.edit, name='edit_profile'),
-    url(r'^hood/$', views.add_hood, name='add_hood'),
-    url(r'^join(?P<neighborhood_id>\d+)',views.join, name='join'),
-    url(r'^leave/(?P<neighborhood_id>\d+)',views.leave, name='leave'),
-    url(r'^comment/(?P<post_id>\d+)', views.one_post, name='comment'),
+    url(r'^comment/(?P<post_id>\d+)', views.add_post, name='comment'),
     url(r'^post/$', views.add_post,name='add_post'),
     url(r'^search/', views.search_results, name='search_results'),
+    url(r'^new/rating/(\d+)',views.newrating, name='newrating'),
+    url(r'^mystores/$',views.mystores,name = 'mystores'),
+    url(r'^stores/(\d+)',views.stores,name ='stores'),
+    url(r'^new_stores$', views.new_stores, name='new_stores'),
+    url(r'^myschools/$',views.myschools,name = 'myschools'),
+    url(r'^schools/(\d+)',views.schools,name ='schools'),
+    url(r'^new_schools$', views.new_schools, name='new_schools'),
+  
   
 ]
 

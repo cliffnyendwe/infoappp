@@ -1,0 +1,39 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid" style="text-align: center;background-color: #80cbc4 ">
+    {% if schools %}
+    <div class="row">
+    {% for school in schools %}
+        <div class="col s12 m4">
+            <div class="card" style="width: 80%">
+                <div class="card-image">
+                    <!-- <div class="card-panel" style="color:#00897b;"> -->
+                    <img class='streamimg' src="{{school.image.url}}" height="350px"  alt="{{ school.title }}"/>
+                    
+                </div>
+                <div class="card-panel">
+                    <h5>School Name: {{school.name_of_school}}</h5>
+                    <h5>Located at: {{school.location}}</h5>
+                    <br>
+                    <h5>{{school.school_email_address}}</h5>
+                    <br>
+                    <p>{{ school.description | truncatechars:200 }}</p>
+                    <br>
+                    <a href="{{school.link}}"><button type="button" class="btn btn">View</button></a>
+
+                </div>
+                <hr>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+        {% else %}
+        <h3> Add School</h3>
+            
+            <!-- </div> -->
+    {% endif %}
+</div>
+
+{% endblock %}

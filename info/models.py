@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import URLValidator
 
 # Create your models here.
 
@@ -50,6 +51,7 @@ class Post(models.Model):
     description = models.TextField(max_length = 50,null = True)
     user = models.ForeignKey(User, null = True,related_name='post')
     pub_date = models.DateTimeField(auto_now_add=True, null=True)
+    location = models.CharField(max_length=50,blank=True)
     
     def save_post(self):
         self.save()
@@ -84,3 +86,82 @@ class Comment(models.Model):
         comments = Comments.objects.filter(post__pk = id)
         return comments
 
+
+class Stores(models.Model):
+    image = models.ImageField(upload_to = 'stores/',default='pic.jpg')
+    name_of_store = models.CharField(max_length=50,blank=True)
+    brach_number = models.CharField(max_length = 50)
+    location = models.CharField(max_length = 50)
+    branch_email_address = models.CharField(max_length = 50,null = True)
+    description = models.TextField(max_length = 500)
+    link = models.TextField(validators=[URLValidator()],null=True)
+    
+  
+
+    def save_stores(self):
+        self.save()
+
+    def delete_stores(self):
+        self.delete()
+
+    @classmethod
+    def get_all(cls):
+        projects = cls.objects.all()
+        return stores
+
+    @classmethod
+    def get_stores(cls, project_id):
+        project = cls.objects.get(id=site_id)
+        return stores
+
+    @classmethod
+    def search_by_title(cls,search_term):
+        stores_location = cls.objects.filter(title__icontains=search_term)
+
+
+class Schools(models.Model):
+    image = models.ImageField(upload_to = 'stores/',default='pic.jpg')
+    name_of_school = models.CharField(max_length=50,blank=True)
+    location = models.CharField(max_length = 50)
+    school_email_address = models.CharField(max_length = 50,null = True)
+    description = models.TextField(max_length = 500)
+    link = models.TextField(validators=[URLValidator()],null=True)
+    
+  
+
+    def save_schools(self):
+        self.save()
+
+    def delete_schools(self):
+        self.delete()
+
+    @classmethod
+    def get_all(cls):
+        projects = cls.objects.all()
+        return schools
+
+    @classmethod
+    def get_schools(cls, project_id):
+        project = cls.objects.get(id=site_id)
+        return schools
+
+        return sites_title
+
+
+class Rating(models.Model):
+
+  CHOICES = [(i,i) for i in range(11)]
+
+  affordability = models.IntegerField(choices=CHOICES)
+  reliability = models.IntegerField(choices=CHOICES)
+  conviniency = models.IntegerField(choices=CHOICES)
+  stores = models.ForeignKey(Stores, on_delete=models.CASCADE)
+  postername = models.CharField(max_length=60)
+  pub_date = models.DateTimeField(auto_now_add=True)
+
+
+  def save_rating(self):
+    self.save()
+
+  def delete_rating(self):
+    self.delete()

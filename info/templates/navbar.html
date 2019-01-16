@@ -24,60 +24,35 @@
 
 <body>
 
-  <nav class="nav-extended">
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><i class="material-icons">face</i></a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Contacts</a></li>
-        <li><a href="badges.html">Inquiry</a></li>
+  <nav class="nav-extended" style="background-color:#009688 ">
+      <a class="btn"  style="font-size: x-large" href="{% url 'index' %}">Home</a></li>
+      <a class="btn" style="font-size: x-large" href="{% url 'mystores' %}">Stores</a></li>
+      <a class="btn"  style="font-size: x-large" href="{% url 'myschools' %}">Schools</a></li>
+      <a class="btn"  style="font-size: x-large;float:right;margin-top: 13px" href="/accounts/login">Login</a>
+      <a class="btn"  style="font-size: x-large;float:right;margin-top: 13px" href="/logout">Logout</a>
+      <a class="btn"  style="font-size: x-large;float:right;margin-top: 13px" href="{% url 'edit_profile'%}" class="menu-link">Profile</a>
+    </nav>
+
+      <a class='dropdown-trigger ' style="font-size: x-large" href='#' data-target='dropdown1'>Account</a>
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content'>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'new_stores' %}">Newstores</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-item" href="{% url 'new_schools' %}">Newschools</a>
+        </li>
       </ul>
-    </div>
-    <div class="nav-content" style="font-size: x-large;">
-      <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#test1">Chainstores</a></li>
-        <li class="tab"><a class="active" href="#test2">Schools</a></li>
-        <li class="tab"><a href="#test4">Hospitals</a></li>
-      </ul>
-    </div>
 
 
-    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Account</a>
-    <!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-      <li class="nav-item">
-        <a class="nav-link" href="#index">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-      <div class="divider"></div>
-      <li class="nav-item">
-        <a class="nav-link" href="/accounts/login">Login</a>
-      </li>
-      <div class="divider"></div>
-      <li class="menu-item">
-        <a href="{% url 'edit_profile'%}" class="menu-link"><i class="material-icons">face</i>Profile</a>
-      </li>
-      <div class="divider"></div>
-      <li class="menu-item">
-        <a href="{% url 'add_post'%}" class="menu-link">post</a>
-      </li>
-  </nav>
+  <form class="navbar-form" role="search" action="">
+    <input type="text" name="search" placeholder="Search.." style="width: 250px;">
+  </form>
 
-  <ul class="sidenav" id="mobile-demo" style="font-size: x-large;">
-    <li><a href="badges.html">Contacts</a></li>
-    <li><a href="collapsible.html">Inquiry</a></li>
-  </ul>
 
-  <div class="col-md-2" height="5px;" width="10px;">
-    <form class="navbar-form" role="search" action="">
-      <input type="text" name="search" placeholder="Search.." id="input">
-    </form>
-
-  </div>
   <script>
     $('.dropdown-trigger').dropdown();
   </script>
 
 </body>
+</html>

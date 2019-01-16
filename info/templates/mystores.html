@@ -1,0 +1,42 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid" style="text-align: center;background-color: #80cbc4 ">
+    {% if stores %}
+    <div class="row">
+    {% for store in stores %}
+        <div class="col s12 m4">
+            <div class="card" style="width: 80%">
+                <div class="card-image">
+                    <!-- <div class="card-panel" style="color:#00897b;"> -->
+                    <img class='streamimg' src="{{store.image.url}}" height="350px"  alt="{{ store.title }}"/>
+                    
+                </div>
+                <div class="card-panel">
+                    <h5>Store Name: {{store.name_of_store}}</h5>
+                    <br>
+                    <h5>Store: {{store.brach_number}}</h5>
+                    <br>
+                    <h5>Located at: {{store.location}}</h5>
+                    <br>
+                    <h5>{{store.branch_email_address}}</h5>
+                    <br>
+                    <p>{{ store.description | truncatechars:200 }}</p>
+                    <br>
+                    <a href="{{store.link}}"><button type="button" class="btn btn">View</button></a>
+
+                </div>
+                <hr>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+        {% else %}
+        <h3> Add Store</h3>
+            
+            <!-- </div> -->
+    {% endif %}
+</div>
+
+{% endblock %}

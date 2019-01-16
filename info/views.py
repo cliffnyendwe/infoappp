@@ -2,12 +2,12 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from .models import Profile,User,Post,Comment
-from .forms import ProfileForm,PostForm,CommentForm
+from .models import Profile,User,Post,Comment,Stores,Schools
+from .forms import ProfileForm,PostForm,CommentForm,NewStoresForm,NewSchoolsForm
 
 @login_required( login_url= '/accounts/login')
 def index(request):
-    return render(request , 'index.html' )
+    return render(request, 'index.html',{'stores':stores})
 
 
 @login_required(login_url='/accounts/login/')
@@ -26,47 +26,65 @@ def edit(request):
     return render(request, 'edit_profile.html', locals())
 
 
-@login_required(login_url='/accounts/login')
-def add_hood(request):
-    if request.method == 'POST':
-        hoodform = HoodForm(request.POST, request.FILES)
-        if hoodform.is_valid():
-            upload = hoodform.save(commit=False)
-            upload.profile = request.user.profile
-            upload.save()
-            return redirect('home_page')
-    else:
-        hoodform = HoodForm()
-    return render(request,'add-hood.html',locals())
-    
+@login_required(login_url='/accounts/login/')
+def mystores(request):
+    stores = Stores.objects.all().order_by()
+    return render(request,'mystores.html', {'stores':stores})
 
-@login_required(login_url='/accounts/login')
-def join(request,neighborhood_id):
-    hood = NeighborHood.objects.get(id=neighborhood_id)
-    current_user = request.user
-    current_user.profile.neighborhood = hood
-    current_user.profile.save()
-    return redirect('hood',neighborhood_id)
+@login_required(login_url='/accounts/login/')
+def stores(request, id):
+  ida = request.user.id
+  ratings = Rating.objects.filter(project=id)
+  stores = Store.objects.get(pk=id)
 
-@login_required(login_url='/accounts/login')
-def leave(request,neighborhood_id):
-    current_user = request.user
-    current_user.profile.neighborhood = None
-    current_user.profile.save()
-    return redirect('home_page')
+  return render(request, 'stores.html',{'stores':stores,'ratings':ratings})
+
+@login_required(login_url='/accounts/login/')
+def new_stores(request):
+  ida = request.user.id
+
+  if request.method == 'POST':
+    form = NewStoresForm(request.POST, request.FILES)
+    if form.is_valid():
+      stores = form.save(commit=False)
+      stores.save()
+    return redirect('index')
+
+  else:
+    form = NewStoresForm()
+
+  return render(request, 'new_stores.html',{'form':form})
 
 
-def one_post(request,post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.post = post
-            comment.save()
-        return render(request, 'commentspace.html', locals())
-    return redirect('hood')
+@login_required(login_url='/accounts/login/')
+def myschools(request):
+    schools = Schools.objects.all().order_by()
+    return render(request,'myschools.html', {'schools':schools})
+
+@login_required(login_url='/accounts/login/')
+def schools(request, id):
+  ida = request.user.id
+  ratings = Rating.objects.filter(project=id)
+  schools = School.objects.get(pk=id)
+
+  return render(request, 'schools.html',{'schools':schools,'ratings':ratings})
+
+@login_required(login_url='/accounts/login/')
+def new_schools(request):
+  ida = request.user.id
+
+  if request.method == 'POST':
+    form = NewSchoolsForm(request.POST, request.FILES)
+    if form.is_valid():
+      schools = form.save(commit=False)
+      schools.save()
+    return redirect('index')
+
+  else:
+    form = NewSchoolsForm()
+
+  return render(request, 'new_schools.html',{'form':form})
+
 
 @login_required(login_url='/accounts/login')
 def add_post(request):
@@ -85,11 +103,36 @@ def add_post(request):
 
 @login_required(login_url='/accounts/login')
 def search_results(request):
-    business= Business.objects.all()
-    if 'business' in request.GET and request.GET["business"]:
-        search_term = request.GET.get("business")
-        searched_business = Business.search(search_term)
+    stores= Stores.objects.all()
+    if 'stores' in request.GET and request.GET["stores"]:
+        search_term = request.GET.get("stores")
+        searched_stores = Stores.search(search_term)
         message = f"{search_term}"
 
         return render(request, 'search.html',locals())
+
+
+@login_required(login_url='/accounts/login/')
+def newrating(request,id):
+  ida = request.user.id
+  idd = id
+  current_username = request.user.username
+
+  if request.method == 'POST':
+    form = NewRatingForm(request.POST)
+    if form.is_valid():
+      rating = form.save(commit=False)
+      affordability_rating = form.cleaned_data['affordability']
+      reliability_rating = form.cleaned_data[' reliability']
+      convieniency_rating = form.cleaned_data['convieniency']
+      rating.postername = current_username
+      rating.project = stores.objects.get(pk=id)
+
+      rating.save()
+    return redirect('stores',id)
+
+  else:
+    form = NewRatingForm()
+
+  return render(request, 'newrating.html',{'form':form,'profile':profile,'idd':idd})
 

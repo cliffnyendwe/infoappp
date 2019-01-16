@@ -9,22 +9,22 @@
         <div class="col-md-4 edit-areas">
           <h3>Account</h3>
           {% if profile.profile.Profile_photo %}
-          <img src="{{profile.profile.Profile_photo.url}}" alt="img" width="200px" height="150px" style="border-radius: 50%">
+          <img src="{{profile.profile.Profile_photo.url}}" alt="img" width="150px" height="150px" style="border-radius: 50%">
           {% endif %}
         
             <h5 style="font-family: 'Cormorant Garamond', serif;">Email Address</h5>
           
-          <p style="font-family: 'Tangerine', cursive;font-size: large">{{user.profile.email_address}}</p>
+          <p style="font-family: 'Tangerine', cursive;font-size: x-large">{{user.profile.email_address}}</p>
           <br>
         
             <h5 style="font-family: 'Cormorant Garamond', serif;">Location</h5>
   
-          <p style="font-family: 'Tangerine', cursive;font-size: large">{{user.profile.location}}</p>
+          <p style="font-family: 'Tangerine', cursive;font-size: x-large">{{user.profile.location}}</p>
           <br>
           
             <h5 style="font-family: 'Cormorant Garamond', serif;">Biography</h5>
 
-          <p style="font-family: 'Tangerine', cursive;font-size: large">{{user.profile.Bio}}</p>
+          <p style="font-family: 'Tangerine', cursive;font-size: x-large">{{user.profile.Bio}}</p>
         </div>
         <div class="col-md-8">
           <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">

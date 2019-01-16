@@ -3,8 +3,8 @@
 {% load bootstrap4 %}
 {% block content %}
 <div class="container-fluid" style="background-color: #009688 ">
-    <div class="card-panel" >
-
+    <div class="card-panel">
+<br><br><br><br>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators" style="display:none">
@@ -18,24 +18,15 @@
                 <div class="item active">
                     <img src="http://www.magicalkenya.com/wp-content/uploads/2017/03/DSC_3377.jpg" alt="malls" width="1800"
                         height="1000">
-                    <div class="carousel-caption">
-                        <h1 style="padding-top:50px;">INCASE OF ANY QUERRY CONTACT US THROUGH:0710755176</h1>
-                    </div>
                 </div>
 
                 <div class="item">
-                    <img src="http://www.materkenya.com/images/maternity.jpg" alt="hospitals" width="1800" height="1000">
-                    <div class="carousel-caption">
-                        <h1 style="padding-top:50px;">INCASE OF ANY QUERRY CONTACT US THROUGH:0710755176</h1>
-                    </div>
+                    <img src="https://image.shutterstock.com/z/stock-photo-x-ray-room-in-a-hospital-er-operating-room-with-a-classic-ceiling-mounted-x-ray-system-modern-602279930.jpg" alt="hospitals" width="1800" height="1000">
                 </div>
 
                 <div class="item">
                     <img src="http://livedaybreak.com/_photos/places-spaces/earlylightacademy-1.jpg?Action=thumbnail&Width=1620"
                         alt="schools" width="1800" height="1000">
-                    <div class="carousel-caption">
-                        <h1 style="padding-top:50px;">INCASE OF ANY QUERRY CONTACT US THROUGH:0710755176</h1>
-                    </div>
                 </div>
             </div>
 
@@ -49,37 +40,6 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
-        {% if request.user.profile.neighborhood %}
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <a style="color:white;" href="{% url 'hood' neighborhood_id=request.user.profile.neighborhood.id %}"
-                    class="btn btn-outline-dark">View
-                    Current Neighborhood</a>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-        {% endif %}
-        <div class="row">
-
-            <div class="col-md-2"></div>
-            {% for hood in hoods%}
-            <div class="card col-md-4" id="hoody">
-                <img class="card-img-top img-responsive" src="{{hood.view.url}}" alt="Card image cap" height="200px;"
-                    width="300px;" />
-                <div class="card-body">
-
-                    <p><strong>{{hood.name}}</strong> {{hood.location}}</p>
-                    <a href="{% url 'join' neighborhood_id=hood.id %}" class="btn btn-outline-success">Join
-                        Neighborhood</a>
-                    <p class="card-text" style="font-size:14px;"><small class="text-muted">Since
-                            {{hood.pub_date|timesince}}</small></p>
-
-                </div>
-            </div>
-            {% endfor %}
-            <div class="col-md-2"></div>
-        </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
