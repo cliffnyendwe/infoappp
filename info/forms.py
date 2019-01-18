@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile,Post,Comment,Stores,Rating,Schools
+from .models import Profile,Post,Comment,Stores,Rating,Schools,Hospitals
 from django.contrib.auth.models import User
 
 
@@ -29,6 +29,13 @@ class CommentForm(forms.ModelForm):
 class NewStoresForm(forms.ModelForm):
   class Meta:
     model = Stores
+    exclude = ['poster','postername', 'pub_date']
+
+
+
+class NewHospitalsForm(forms.ModelForm):
+  class Meta:
+    model = Hospitals
     exclude = ['poster','postername', 'pub_date']
 
 class NewSchoolsForm(forms.ModelForm):

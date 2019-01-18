@@ -119,6 +119,35 @@ class Stores(models.Model):
         stores_location = cls.objects.filter(title__icontains=search_term)
 
 
+class Hospitals(models.Model):
+    image = models.ImageField(upload_to = 'stores/',default='pic.jpg')
+    name_of_hospital = models.CharField(max_length=50,blank=True)
+    location = models.CharField(max_length = 50)
+    hospital_email_address = models.CharField(max_length = 50,null = True)
+    description = models.TextField(max_length = 500)
+    link = models.TextField(validators=[URLValidator()],null=True)
+    
+  
+
+    def save_hospitals(self):
+        self.save()
+
+    def delete_hospitalls(self):
+        self.delete()
+
+    @classmethod
+    def get_all(cls):
+        projects = cls.objects.all()
+        return hospitals
+
+    @classmethod
+    def get_hospitals(cls, project_id):
+        project = cls.objects.get(id=site_id)
+        return hospitals
+
+        return sites_title
+
+
 class Schools(models.Model):
     image = models.ImageField(upload_to = 'stores/',default='pic.jpg')
     name_of_school = models.CharField(max_length=50,blank=True)
@@ -155,7 +184,6 @@ class Rating(models.Model):
   affordability = models.IntegerField(choices=CHOICES)
   reliability = models.IntegerField(choices=CHOICES)
   conviniency = models.IntegerField(choices=CHOICES)
-  stores = models.ForeignKey(Stores, on_delete=models.CASCADE)
   postername = models.CharField(max_length=60)
   pub_date = models.DateTimeField(auto_now_add=True)
 

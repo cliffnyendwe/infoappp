@@ -1,0 +1,39 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid" style="text-align: center;background-color: #80cbc4 ">
+    {% if hospitals %}
+    <div class="row">
+    {% for hospital in hospitals %}
+        <div class="col s12 m4">
+            <div class="card" style="width: 80%">
+                <div class="card-image">
+                    <!-- <div class="card-panel" style="color:#00897b;"> -->
+                    <img class='streamimg' src="{{hospital.image.url}}" height="350px"  alt="{{ hospital.title }}"/>
+                    
+                </div>
+                <div class="card-panel">
+                    <h5>Hospital Name: {{hospital.name_of_hospital}}</h5>
+                    <h5>Located at: {{hospital.location}}</h5>
+                    <br>
+                    <h5>{{hospital.email_address}}</h5>
+                    <br>
+                    <p>{{ hospital.description | truncatechars:200 }}</p>
+                    <br>
+                    <a href="{{hospital.link}}"><button type="button" class="btn btn">View</button></a>
+
+                </div>
+                <hr>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+        {% else %}
+        <h3> Add Hospitals</h3>
+            
+            <!-- </div> -->
+    {% endif %}
+</div>
+
+{% endblock %}

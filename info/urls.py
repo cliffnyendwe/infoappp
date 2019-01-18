@@ -17,6 +17,9 @@ urlpatterns = [
     url(r'^myschools/$',views.myschools,name = 'myschools'),
     url(r'^schools/(\d+)',views.schools,name ='schools'),
     url(r'^new_schools$', views.new_schools, name='new_schools'),
+    url(r'^myhospitals/$',views.myhospitals,name = 'myhospitals'),
+    url(r'^hospitals/(\d+)',views.hospitals,name ='hospitals'),
+    url(r'^new_hospitals$', views.new_hospitals, name='new_hospitals'),
   
   
 ]

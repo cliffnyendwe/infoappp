@@ -1,17 +1,19 @@
 {%extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid" style="text-align: center;background-color: #80cbc4 ">
+<div class="container-fluid;animated bounceIn" style="text-align: center;background-color: #80cbc4 ">
     {% if stores %}
     <div class="row">
-    {% for store in stores %}
+        {% for store in stores %}
         <div class="col s12 m4">
             <div class="card" style="width: 80%">
                 <div class="card-image">
                     <!-- <div class="card-panel" style="color:#00897b;"> -->
-                    <img class='streamimg' src="{{store.image.url}}" height="350px"  alt="{{ store.title }}"/>
-                    
+                    <img class='streamimg' src="{{store.image.url}}" height="350px" alt="{{ store.title }}" />
+
                 </div>
+                
+                <span class="card-title activator grey-text text-darken-4">Chain Stores<i class="material-icons right">more_vert</i></span>
                 <div class="card-panel">
                     <h5>Store Name: {{store.name_of_store}}</h5>
                     <br>
@@ -31,11 +33,11 @@
         </div>
         {% endfor %}
     </div>
-    
-        {% else %}
-        <h3> Add Store</h3>
-            
-            <!-- </div> -->
+
+    {% else %}
+    <h3> Add Store</h3>
+
+    <!-- </div> -->
     {% endif %}
 </div>
 

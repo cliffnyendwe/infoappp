@@ -7,21 +7,21 @@
     <div class="row">
       <div class="col sm12 md6 lg4">
        
-          <h2 class="firstletter">{{stores.title}}</h2>
+          <h2 class="firstletter">{{schools.title}}</h2>
 
           <!-- <div class="card-panel"> -->
-            <img class='img' src="{{stores.image.url}}" width="500px" ;height="300px" alt="{{ stores.title }}">
+            <img class='soloimg' src="{{hospitals.image.url}}" width="500px" ;height="300px" alt="{{ hospitals.title }}">
             <!-- <div class="card-body"> -->
-              <h5 class="card-title firstletter">{{stores.title}}</h5>
+              <h5 class="card-title firstletter">{{hospitals.title}}</h5>
               <!-- <p class="card-text"> -->
-                <p>{{stores.description}}</p>
-                <p><a target="_blank" href="{{ stores.link }}"><button type="button" class="btn btn-info">View stores</button></a>
+                <p>{{hospitals.description}}</p>
+                <p><a target="_blank" href="{{ hospitals.link }}"><button type="button" class="btn ">View hospital</button></a>
                 <!-- </p> -->
               </p>
 
             <!-- </div> -->
           <!-- </div> -->
-          <a href="{% url 'newrating' stores.id %}"><button type="button" class="btn btn-primary">Rate now</button></a>
+          <a href="{% url 'newrating' hospitals.id %}"><button type="button" class="btn btn-primary">Rate now</button></a>
 
           {% if ratings%}
           <div class="row ">

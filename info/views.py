@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from .models import Profile,User,Post,Comment,Stores,Schools
-from .forms import ProfileForm,PostForm,CommentForm,NewStoresForm,NewSchoolsForm
+from .models import Profile,User,Post,Comment,Stores,Schools,Hospitals
+from .forms import ProfileForm,PostForm,CommentForm,NewStoresForm,NewSchoolsForm,NewHospitalsForm
 
 @login_required( login_url= '/accounts/login')
 def index(request):
@@ -85,6 +85,36 @@ def new_schools(request):
 
   return render(request, 'new_schools.html',{'form':form})
 
+
+
+@login_required(login_url='/accounts/login/')
+def myhospitals(request):
+    hospitals = Hospitals.objects.all().order_by()
+    return render(request,'myhospitals.html', {'hospitals':hospitals})
+
+@login_required(login_url='/accounts/login/')
+def hospitals(request, id):
+  ida = request.user.id
+  ratings = Rating.objects.filter(project=id)
+  hospitals = Hospitals.objects.get(pk=id)
+
+  return render(request, 'hospitals.html',{'hospitals':hospitals,'ratings':ratings})
+
+@login_required(login_url='/accounts/login/')
+def new_hospitals(request):
+  ida = request.user.id
+
+  if request.method == 'POST':
+    form = NewHospitalsForm(request.POST, request.FILES)
+    if form.is_valid():
+      hospitals = form.save(commit=False)
+      hospitals.save()
+    return redirect('index')
+
+  else:
+    form = NewHospitalsForm()
+
+  return render(request, 'new_hospitals.html',{'form':form})
 
 @login_required(login_url='/accounts/login')
 def add_post(request):
